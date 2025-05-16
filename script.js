@@ -1,95 +1,84 @@
-const playButton = document.getElementById('play-button');
-const blackOverlay = document.getElementById('black-overlay');
-const corner = document.getElementById('corner');
-const heartContainer = document.getElementById('heart-container');
-const messageBox = document.getElementById('messageBox');
+(() => {
+    const _$ = s => document.getElementById(s);
+    const $ = {
+        a: _$('play-button'),
+        b: _$('black-overlay'),
+        c: _$('corner'),
+        d: _$('heart-container'),
+        e: _$('messageBox'),
+    };
 
-playButton.addEventListener('click', () => {
-    blackOverlay.classList.add('fall');
-    corner.classList.add('fall-corner');
+    const nonsense = () => {
+        return ((x, y) => x + y)(Math.random(), Math.random()); // chẳng ảnh hưởng gì
+    };
 
-    // Đợi nền đen rơi xong, rồi tạo trái tim
-    setTimeout(() => {
-        startHearts();
-    }, 1500); // 1.5 giây sau khi bấm
-});
+    const base = atob("c2V0VGltZW91dCgocikgPT4gewogICAgcigpOwogfSwgMTUwMCk7"); // "setTimeout((r) => { r(); }, 1500);"
+    const trigger = () => {
+        $.b.classList.add('fall');
+        $.c.classList.add('fall-corner');
 
-function startHearts() {
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-
-        const wrapper = document.createElement("div");
-        wrapper.classList.add("wrapper");
-
-        const core = document.createElement("div");
-        core.classList.add("core");
-        const left = document.createElement("div");
-        left.classList.add("left");
-        const right = document.createElement("div");
-        right.classList.add("right");
-
-        wrapper.appendChild(core);
-        wrapper.appendChild(left);
-        wrapper.appendChild(right);
-        heart.appendChild(wrapper);
-
-        // Vị trí và kích thước ngẫu nhiên
-        const size = 4 + Math.random() * 14;
-        const duration = 2 + Math.random() * 3;
-
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = `${duration}s`; // gán duration cho floatUp
-        heart.style.opacity = 0.4 + Math.random() * 0.6;
-
-        wrapper.style.width = `${size}px`;
-        wrapper.style.height = `${size}px`;
-        core.style.width = `${size}px`;
-        core.style.height = `${size}px`;
-
-        left.style.width = `${size}px`;
-        left.style.height = `${size}px`;
-        left.style.top = `${-size / 2}px`;
-        left.style.left = "0px";
-
-        right.style.width = `${size}px`;
-        right.style.height = `${size}px`;
-        right.style.top = "0px";
-        right.style.left = `${-size / 2}px`;
-
-        // Xoay và nghiêng cho wrapper
-        const animations = [];
-        if (Math.random() < 0.5) animations.push(`rotateSelf ${duration}s linear forwards`);
-        if (Math.random() < 0.5) animations.push(`tilt ${duration}s ease-in-out forwards`);
-
-        wrapper.style.animation = animations.length > 0 ? animations.join(", ") : "none";
-
-        document.getElementById("heart-container").appendChild(heart);
+        eval(base.replace('r()', '___heart()')); // eval gọi hàm bị mã hóa
 
         setTimeout(() => {
-            heart.remove();
-        }, duration * 1000);
-    }, 150);
-}
+            $.e.style.display = ['f', 'l', 'e', 'x'].join('');
+            $.e.style.animation = ['p', 'o', 'p', 'I', 'n'].join('') + ' 0.6s ease-out';
+        }, 3000);
 
-playButton.addEventListener('click', () => {
-    blackOverlay.classList.add('fall');
-    corner.classList.add('fall-corner');
+        setTimeout(() => {
+            (((f) => {
+                const a = document.querySelector('.admin');
+                a.style['display'] = 'block';
+                a.style.animation = 'fadeUp 1s ease-out forwards';
+                f && f();
+            }))(nonsense);
+        }, 5000);
+    };
 
-    // Đợi nền đen rơi xong, rồi tạo trái tim
-    setTimeout(() => {
-        startHearts();
-    }, 1500); // 1.5 giây sau khi bấm
+    window.___heart = () => {
+        setInterval(() => {
+            const z = (tag, cls) => {
+                const el = document.createElement(tag);
+                el.className = cls;
+                return el;
+            };
 
-    // Sau 3 giây hiện khung chữ
-    setTimeout(() => {
-        messageBox.style.display = 'flex';
-        messageBox.style.animation = 'popIn 0.6s ease-out';
-    }, 3000);
+            const h = z('div', 'heart'),
+                w = z('div', 'wrapper'),
+                c = z('div', 'core'),
+                l = z('div', 'left'),
+                r = z('div', 'right');
 
-    setTimeout(() => {
-        const admin = document.querySelector('.admin');
-        admin.style.display = 'block';
-        admin.style.animation = 'fadeUp 1s ease-out forwards';
-    }, 5000); // hiện sau 2 giây sau messageBox
-});
+            [c, l, r].forEach(x => w.appendChild(x));
+            h.appendChild(w);
+
+            const s = 4 + Math.random() * 14;
+            const t = 2 + Math.random() * 3;
+            const setSize = el => ['width', 'height'].forEach(p => el.style[p] = `${s}px`);
+
+            [w, c, l, r].forEach(setSize);
+
+            Object.assign(h.style, {
+                left: `${Math.random() * 100}vw`,
+                animationDuration: `${t}s`,
+                opacity: 0.4 + Math.random() * 0.6
+            });
+
+            l.style.top = `${-s / 2}px`;
+            l.style.left = "0px";
+            r.style.top = "0px";
+            r.style.left = `${-s / 2}px`;
+
+            const anime = [];
+            Math.random() < 0.5 && anime.push(`rotateSelf ${t}s linear forwards`);
+            Math.random() < 0.5 && anime.push(`tilt ${t}s ease-in-out forwards`);
+            w.style.animation = anime.length ? anime.join(', ') : 'none';
+
+            $.d.appendChild(h);
+            setTimeout(() => h.remove(), t * 1000);
+        }, 150);
+    };
+
+    ((btn, evt, cb) => {
+        btn.addEventListener(evt, cb);
+    })($.a, ['c', 'l', 'i', 'c', 'k'].join(''), trigger);
+})();
