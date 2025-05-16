@@ -1,0 +1,230 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #ff3e85;
+    font-family: sans-serif;
+}
+
+#black-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transform-origin: top left;
+}
+
+#corner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    z-index: 11;
+}
+
+#black-overlay.fall {
+    animation: fallMain 1s ease-out forwards;
+}
+
+#corner.fall-corner {
+    animation: fallCorner 0.5s ease-out 1s forwards;
+}
+
+@keyframes fallMain {
+    to {
+        transform: rotate(10deg) translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fallCorner {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+#play-button {
+    padding: 12px 20px;
+    background-color: #00f0ff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease
+}
+
+#play-button:hover {
+    transform: scale(1.05);
+}
+
+#heart-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    transform-origin: center;
+    animation: floatUp 4s linear forwards;
+    opacity: 0.8;
+}
+
+.heart .wrapper {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+}
+
+.heart .core {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgb(255, 206, 206);
+    top: 0;
+    left: 0;
+}
+
+.heart .left,
+.heart .right {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgb(255, 206, 206);
+    border-radius: 50%;
+}
+
+.heart .left {
+    top: -10px;
+    left: 0;
+}
+
+.heart .right {
+    top: 0;
+    left: -10px;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+    }
+}
+
+@keyframes rotateSelf {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes tilt {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(3deg);
+    }
+    50% {
+        transform: rotate(-3deg);
+    }
+    75% {
+        transform: rotate(2deg);
+    }
+}
+
+#play-button {
+    padding: 15px 30px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff69b4;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+#play-button:hover {
+    background-color: #ff85c1;
+}
+
+#messageBox {
+    font-family: 'Gloria Hallelujah', cursive;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff69b4;
+    padding: 20px 40px;
+    border-radius: 12px;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    display: none;
+    z-index: 15;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+    text-align: center;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) translate(-50%, -50%);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1) translate(-50%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) translate(-50%, -50%);
+    }
+}
+
+.admin {
+    font-family: 'Gloria Hallelujah', cursive;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: #ffffff;
+    font-style: italic;
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+    /* ẩn ban đầu */
+    animation: fadeUp 1s ease-out forwards;
+    text-align: center;
+}
+
+@keyframes fadeUp {
+    0% {
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
